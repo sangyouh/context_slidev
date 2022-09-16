@@ -20,7 +20,7 @@ info: |
 drawings:
   persist: false
 # use UnoCSS
-css: unocss
+# css: unocss
 ---
 
 <br>
@@ -166,7 +166,7 @@ const UserContext = createContext();
 ```js
 const ConsumerProvider = ({ children }) => {
   const [name, setName] = useState("상추");
-  const [age, setAge] = useState(1);
+  const [age, setAge] = useState(3);
   const happyBirthday = () => setAge(age + 1);
   return (
     <UserContext.Provider value={{ name, age, happyBirthday }}>
@@ -210,7 +210,9 @@ export default withConsumer(Landing);
 
 # Context API in detail
 
-### React.createContext( )
+<br>
+
+## React.createContext( )
 
 ```js
 const MyContext = React.createContext(defaultValue);
@@ -218,11 +220,15 @@ const MyContext = React.createContext(defaultValue);
 
 - defaultValue 는 컴포넌트가 matching provider을 가지고 있지 않을 때만 사용한다.
 
-### Context.Provider
+## Context.Provider
 
 ```js
 <MyContext.Provider value={/*some value*/}>
 ```
+
+- 모든 Context object 는 Provider React component 를 가지고 있다. 이는 context의 변화를 구독하는 컴포넌트에게 알려준다.
+- Provider 는 value prop 을 받는다. 이는 하위에 있는 모든 consumer 에게 전달된다.
+- 하나의 context 에 여러개의 provider 가 있을 수 있다. 이 경우, 가장 가까운 provider 의 value 를 사용한다.
 
 <style>
 h1 {
@@ -234,7 +240,23 @@ h1 {
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
 }
+/* h3 { text-transform: lowercase; } */
+/* h3:first-letter { text-transform: uppercase; } */
 </style>
+
+---
+
+## Context.Consumer
+
+```js
+<MyContext.Consumer>
+  {value => /* render something based on the context value */}
+</MyContext.Consumer>
+```
+
+<!-- |         |     |
+| ------- | --- |
+| example | row | -->
 
 ---
 
